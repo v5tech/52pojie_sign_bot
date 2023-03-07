@@ -7,8 +7,8 @@ on:
     branches: [ main ]
   workflow_dispatch: # 手动触发
   schedule:
-    - cron: "0 16 * * *"  # 每天16点执行一次
-    - cron: "0 */6 * * *" # 每6小时执行一次
+    - cron: "0 0 * * *"
+    - cron: "0 */6 * * *"
 
 jobs:
   build:
