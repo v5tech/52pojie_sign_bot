@@ -18,7 +18,6 @@ BASE_URL = "https://bbs.125.la"
 def get_formhash():
     url = f"{BASE_URL}/plugin.php?id=dsu_paulsign:sign"
     response = SESSION.get(url=url, headers=HEADERS)
-    print(response.text)
     response.raise_for_status()  # 判断请求状态是否正常
     soup = BeautifulSoup(response.text, "html.parser")
     return soup.find("input", {"name": "formhash"})["value"]
