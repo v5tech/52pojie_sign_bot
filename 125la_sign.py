@@ -5,6 +5,7 @@ import urllib.parse
 import re
 from bs4 import BeautifulSoup
 import notify
+from datetime import datetime, timedelta
 
 SESSION = requests.Session()
 
@@ -44,9 +45,15 @@ def sign(formhash):
     }
     sign_resp = SESSION.post(url=sign_url, data=data, headers=HEADERS)
     sign_resp.raise_for_status()  # 判断请求状态是否正常
-    text = sign_resp.json()['msg']
-    print(text)
-    notify.send("精益论坛签到", text)
+    message = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") + "\r\n"
+    json_data = sign_resp.json()
+    if json_data['status'] == 1:
+        data = json_data['data']
+        message += f"累计签到：{data['days']} 天\r\n本月签到：{data['mdays']} 天\r\n总得奖励：{data['reward']} 精币\r\n本次奖励：{data['credit']} 精币\r\n上次签到：{data['qtime']}"
+    else:
+        message += json_data['msg']
+    print(message)
+    notify.send("精益论坛签到", message)
 
 
 if __name__ == "__main__":

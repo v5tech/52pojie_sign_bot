@@ -1,6 +1,7 @@
 # -- coding: utf-8 --
 
 import re
+from datetime import datetime, timedelta
 import urllib.parse
 import requests
 from bs4 import BeautifulSoup
@@ -41,6 +42,7 @@ def sign():
         message = "今日已签到"
     else:
         message = "签到失败"
+    message = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") + "\r\n" + message
     print(message)
     notify.send("52pojie签到", message)
 

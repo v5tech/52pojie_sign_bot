@@ -4,6 +4,7 @@ import requests
 import json
 import sys
 import notify
+from datetime import datetime, timedelta
 
 
 def aliyundrive_sign(refresh_token):
@@ -39,6 +40,7 @@ def aliyundrive_sign(refresh_token):
             message += f"阿里云盘签到失败！\n"
     else:
         message += f"阿里云盘签到失败：{json.loads(resp.text)['message']}\n"
+    message = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") + "\r\n" + message
     print(message)
     notify.send("阿里云盘签到", message)
 

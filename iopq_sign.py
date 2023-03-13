@@ -5,6 +5,7 @@ import urllib.parse
 import requests
 from pyquery import PyQuery as pq
 import notify
+from datetime import datetime, timedelta
 
 SESSION = requests.Session()
 
@@ -29,7 +30,7 @@ def sign():
     response.raise_for_status()  # 判断请求状态是否正常
     response.encoding = 'gbk'
     doc = pq(response.text)
-    message = doc('#extcreditmenu').text(), doc('#g_upmine').text()
+    message = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") + "\r\n" + doc('#extcreditmenu').text() + "\r\n" + doc('#g_upmine').text()
     print(message)
     notify.send("iopq签到", message)
 

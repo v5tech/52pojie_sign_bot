@@ -5,6 +5,7 @@ import urllib.parse
 import re
 from bs4 import BeautifulSoup
 import notify
+from datetime import datetime, timedelta
 
 SESSION = requests.Session()
 
@@ -38,9 +39,10 @@ def sign(formhash):
     sign_resp = SESSION.get(url=sign_url, headers=HEADERS)
     sign_resp.raise_for_status()  # 判断请求状态是否正常
     soup = BeautifulSoup(sign_resp.text, 'xml')
-    cdata = soup.find('root').string
-    print(cdata)
-    notify.send("jiaofs签到", cdata)
+    message = soup.find('root').string
+    message = (datetime.utcnow() + timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S") + "\r\n" + message
+    print(message)
+    notify.send("jiaofs签到", message)
 
 
 if __name__ == "__main__":
