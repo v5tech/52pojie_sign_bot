@@ -18,12 +18,12 @@ BASE_URL = "https://www.52pojie.cn"
 
 def sign():
     message = ""
-    url1 = f"{BASE_URL}/CSPDREL2hvbWUucGhwP21vZD10YXNrJmRvPWRyYXcmaWQ9Mg==?wzwscspd=MC4wLjAuMA=="
+    # url1 = f"{BASE_URL}/CSPDREL2hvbWUucGhwP21vZD10YXNrJmRvPWRyYXcmaWQ9Mg==?wzwscspd=MC4wLjAuMA=="
     url2 = f'{BASE_URL}/home.php?mod=task&do=apply&id=2&referer=%2F'
     url3 = f'{BASE_URL}/home.php?mod=task&do=draw&id=2'
 
-    r = SESSION.get(url1, headers=HEADERS, allow_redirects=False)
-    r.raise_for_status()  # 判断请求状态是否正常
+    # r = SESSION.get(url1, headers=HEADERS, allow_redirects=False)
+    # r.raise_for_status()  # 判断请求状态是否正常
 
     r = SESSION.get(url2, headers=HEADERS, allow_redirects=False)
     r.raise_for_status()  # 判断请求状态是否正常
